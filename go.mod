@@ -1,3 +1,3 @@
-module github.com/HowAboutAQuiz/go-examples
+module github.com/AdityaShakya-Treeleaf/go-examples
 
 go 1.25.1
