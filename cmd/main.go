@@ -1,18 +1,20 @@
 package main
 
 import (
-	"github.com/HowAboutAQuiz/go-examples/internal/controllers"
-	"github.com/HowAboutAQuiz/go-examples/internal/dsa"
-	"github.com/HowAboutAQuiz/go-examples/internal/routes"
-	"github.com/HowAboutAQuiz/go-examples/internal/service"
-	"github.com/HowAboutAQuiz/go-examples/internal/strategy"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/controllers"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/dsa"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/routes"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/service"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/strategy"
 	"net/http"
 )
 
 func main() {
 
 	adjacentIncreasingSubArraysDetection := dsa.AdjacentIncreasingSubArraysDetection{}
+	adjacentIncreasingSubArraysDetectionV2 := dsa.AdjacentIncreasingSubArraysDetectionV2{}
 	adjacentIncreasingSubArraysDetection.Execute()
+	adjacentIncreasingSubArraysDetectionV2.Execute()
 	genreStrategy := strategy.NewGenreHandlerFactory()
 	genreStrategy.AddGenreHandler(strategy.NewActionGenre())
 	genreStrategy.AddGenreHandler(strategy.NewComedyGenre())

@@ -5,6 +5,13 @@ import (
 	"slices"
 )
 
+//3349. Adjacent Increasing Sub arrays Detection I
+
+//Given an array nums of n integers and an integer k, determine whether there exist two adjacent sub arrays of length k such that both sub arrays are strictly increasing. Specifically, check if there are two sub arrays starting at indices a and b (a < b), where:
+//Both sub arrays nums[a..a + k - 1] and nums[b..b + k - 1] are strictly increasing.
+//The sub arrays must be adjacent, meaning b = a + k.
+//Return true if it is possible to find two such sub arrays, and false otherwise.
+
 type AdjacentIncreasingSubArraysDetection struct{}
 
 func (ad AdjacentIncreasingSubArraysDetection) Execute() {

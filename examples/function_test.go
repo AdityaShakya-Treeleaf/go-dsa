@@ -2,8 +2,9 @@ package examples
 
 import (
 	"fmt"
-	"github.com/HowAboutAQuiz/go-examples/internal/utils"
+	utils "github.com/AdityaShakya-Treeleaf/go-examples/internal/utils"
 	rand2 "math/rand/v2"
+	"slices"
 	"testing"
 )
 
@@ -21,4 +22,15 @@ func TestTernaryOperation(t *testing.T) {
 	fmt.Println(i2)
 	fmt.Println(utils.TernaryOperation(i2 > 5, int1, int2))
 
+}
+
+func TestIsSortedFunc(t *testing.T) {
+	nums := []int{4, 4, 4}
+	fmt.Println(slices.IsSortedFunc(nums, func(a, b int) int {
+		if a == b {
+			return -1
+		}
+
+		return a - b
+	}))
 }

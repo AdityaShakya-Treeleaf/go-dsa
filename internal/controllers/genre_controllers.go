@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"encoding/json"
-	"github.com/HowAboutAQuiz/go-examples/internal/enums"
-	"github.com/HowAboutAQuiz/go-examples/internal/service"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/enums"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/service"
 	"net/http"
 	"strconv"
 	"strings"

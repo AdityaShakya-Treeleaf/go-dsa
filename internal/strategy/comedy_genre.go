@@ -2,7 +2,7 @@ package strategy
 
 import (
 	"context"
-	"github.com/HowAboutAQuiz/go-examples/internal/enums"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/enums"
 )
 
 type ComedyGenre struct {

@@ -1,7 +1,7 @@
 package routes
 
 import (
-	"github.com/HowAboutAQuiz/go-examples/internal/controllers"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/controllers"
 	"net/http"
 )
 

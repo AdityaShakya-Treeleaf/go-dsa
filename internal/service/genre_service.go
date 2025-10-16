@@ -2,8 +2,8 @@ package service
 
 import (
 	"context"
-	"github.com/HowAboutAQuiz/go-examples/internal/enums"
-	"github.com/HowAboutAQuiz/go-examples/internal/strategy"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/enums"
+	"github.com/AdityaShakya-Treeleaf/go-examples/internal/strategy"
 	"log"
 )
 
