@@ -9,9 +9,9 @@ import (
 func TestSmallestMissingNonNegativeInteger(t *testing.T) {
 	smnni := dsa.SmallestMissingNonNegativeInteger{}
 	log.Println("TestCase1.................")
-	nums := []int{1, -10, 7, 13, 6, 8}
-	value := 5
-	expected := 4
+	nums := []int{0, -3}
+	value := 4
+	expected := 2
 	actual := smnni.Execute(nums, value)
 	if expected != actual {
 		t.Fatalf("failed. Expected: %d, Actual: %d", expected, actual)

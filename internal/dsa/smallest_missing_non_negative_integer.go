@@ -2,7 +2,6 @@ package dsa
 
 import (
 	"log"
-	"math"
 )
 
 type SmallestMissingNonNegativeInteger struct{}
@@ -25,7 +24,7 @@ func (s SmallestMissingNonNegativeInteger) Execute(nums []int, value int) int {
 
 	remainderMap := make(map[int]int)
 	for _, num := range nums {
-		remainder := num - (value * int(math.Floor(float64(num/value))))
+		remainder := ((num % value) + value) % value
 		remainderMap[remainder]++
 	}
 
