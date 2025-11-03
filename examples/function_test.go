@@ -3,6 +3,7 @@ package examples
 import (
 	"fmt"
 	utils "github.com/AdityaShakya-Treeleaf/go-examples/internal/utils"
+	"log"
 	rand2 "math/rand/v2"
 	"slices"
 	"testing"
@@ -33,4 +34,13 @@ func TestIsSortedFunc(t *testing.T) {
 
 		return a - b
 	}))
+}
+
+func TestStringToSlice(t *testing.T) {
+	str := "abcdeeaa"
+	strRunes := []rune(str)
+	log.Println(strRunes)
+	slices.Sort(strRunes)
+	a := slices.Compact(strRunes)
+	log.Println(a)
 }

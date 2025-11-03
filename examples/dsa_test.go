@@ -18,3 +18,16 @@ func TestSmallestMissingNonNegativeInteger(t *testing.T) {
 	}
 
 }
+
+func TestMaxDistinctElements(t *testing.T) {
+	maxDistinct := dsa.MaxDistinctElementsAfterOperations{}
+	log.Println("TestCase1.................")
+	nums := []int{1, 2, 2, 3, 3, 4}
+	value := 2
+	expected := 6
+	actual := maxDistinct.MaxDistinctElements(nums, value)
+	if expected != actual {
+		t.Fatalf("failed. Expected: %d, Actual: %d", expected, actual)
+	}
+
+}

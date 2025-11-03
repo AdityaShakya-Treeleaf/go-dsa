@@ -1,8 +1,12 @@
 package examples
 
 import (
+	"bytes"
 	"fmt"
+	"io"
+	"log"
 	"math"
+	"net/http"
 	"sync"
 	"testing"
 )
@@ -156,4 +160,69 @@ func maximumEnergyConcurrentMutex(energy []int, k int) int {
 
 	wg.Wait()
 	return maxEnergy
+}
+
+func TestConcurrentRequests(t *testing.T) {
+	url := "https://api.anydone.com/co-anydone/variables"
+	numRequests := 3
+
+	var wg sync.WaitGroup
+	wg.Add(numRequests)
+
+	requestBody := `{
+       "name": "eight",
+        "projectCode": "TestAuthHook",
+        "folderId": "7dd0ce24ec6a49ba99140b6b14180acb",
+        "value": "1",
+        "scopeLevel":1
+}`
+
+	authToken := "YmIwZDk3NzcwZWI0NGRiMmJmMGJjZTJkMjQwYzdmN2YuZTk3N2Y0OTVhODRiNDQwYWJkY2YwN2ZhY2I2YTBlZTU=.89c591612e35469318af2f05009a1d08a8d068b86d27e1efcc8f904bbe013ee9f864cfdf040fc6b71e49b746a7330a8d56fe3bda7ef195ae06211e742854b8e3"
+
+	// Launch concurrent requests
+	for i := 0; i < numRequests; i++ {
+		go func(requestNum int) {
+			defer wg.Done()
+
+			// CREATE NEW REQUEST FOR EACH GOROUTINE
+			req, reqErr := http.NewRequest("POST", url, bytes.NewBuffer([]byte(requestBody)))
+			if reqErr != nil {
+				log.Printf("Error creating http request: %s", reqErr)
+				t.Errorf("Request %d: Failed to create request: %v", requestNum, reqErr)
+				return
+			}
+
+			// Set headers for each request
+			req.Header.Set("Authorization", authToken)
+			req.Header.Set("Accept", "application/json")
+			req.Header.Set("Content-Type", "application/json")
+
+			// Use client to make request
+			client := &http.Client{}
+			resp, resErr := client.Do(req)
+			if resErr != nil {
+				log.Printf("Request %d Failed: %s", requestNum, resErr)
+				t.Errorf("Request %d: %v", requestNum, resErr)
+				return
+			}
+			defer resp.Body.Close() // Don't forget to close!
+
+			t.Logf("Request %d: Status Code %d", requestNum, resp.StatusCode)
+
+			if resp.StatusCode != http.StatusOK {
+				t.Errorf("Request %d: Expected 200, got %d", requestNum, resp.StatusCode)
+			} else {
+				data, err := io.ReadAll(resp.Body)
+				if err != nil {
+					log.Printf("Error extracting raw response: %s", err)
+				} else {
+					log.Printf("\n%d: %s", requestNum, string(data))
+				}
+			}
+		}(i)
+	}
+
+	// Wait for all requests to complete
+	wg.Wait()
+	t.Log("All concurrent requests completed")
 }
