@@ -163,21 +163,40 @@ func maximumEnergyConcurrentMutex(energy []int, k int) int {
 }
 
 func TestConcurrentRequests(t *testing.T) {
-	url := "https://api.anydone.com/co-anydone/variables"
+	url := "https://api.anydone.com/co-form/v1/form"
 	numRequests := 3
 
 	var wg sync.WaitGroup
 	wg.Add(numRequests)
 
-	requestBody := `{
-       "name": "eight",
-        "projectCode": "TestAuthHook",
-        "folderId": "7dd0ce24ec6a49ba99140b6b14180acb",
-        "value": "1",
-        "scopeLevel":1
-}`
+	requestBody :=
+		`{
+      		"name": "four",
+			"type": 1,
+			"formSection": [{
+					"order": 1,
+					"name": "one",
+					"page": 1,
+					"formGroups": [{
+							"order": 1,
+							"name": "First",
+							"groupType": 3,
+							"fieldId": "first_321551",
+							"fields": [{
+									"order": 1,
+									"type": 19,
+									"name": "First",
+									"fieldId": "first_321551",
+      								"fieldName": "First"
+								}]
+						}]
+				}],
+			"subProject": {
+  				"subProjectId": "c8df81d1ffca4343be9c8d72ce718afd"
+				}
+		 }`
 
-	authToken := "YmIwZDk3NzcwZWI0NGRiMmJmMGJjZTJkMjQwYzdmN2YuZTk3N2Y0OTVhODRiNDQwYWJkY2YwN2ZhY2I2YTBlZTU=.89c591612e35469318af2f05009a1d08a8d068b86d27e1efcc8f904bbe013ee9f864cfdf040fc6b71e49b746a7330a8d56fe3bda7ef195ae06211e742854b8e3"
+	authToken := "YjgwODNjNTVjNDgzNGNmYzkzYzQxZGUzOTkzYjA0YjcuNDA5MTU1YmY3NWU4NGZlMTkwYTQ5MWUxMmQwOWM3NDg=.cb7047b49c6723c56a2587bf49c2eb16bc730ba23f4b665014cea298e525593d9ec5667b52cd0b58b43b82f27b7ceb66b41ed219e38e8a3f53024ce6bd011c73"
 
 	// Launch concurrent requests
 	for i := 0; i < numRequests; i++ {
@@ -211,14 +230,14 @@ func TestConcurrentRequests(t *testing.T) {
 
 			if resp.StatusCode != http.StatusOK {
 				t.Errorf("Request %d: Expected 200, got %d", requestNum, resp.StatusCode)
-			} else {
-				data, err := io.ReadAll(resp.Body)
-				if err != nil {
-					log.Printf("Error extracting raw response: %s", err)
-				} else {
-					log.Printf("\n%d: %s", requestNum, string(data))
-				}
 			}
+			data, err := io.ReadAll(resp.Body)
+			if err != nil {
+				log.Printf("Error extracting raw response: %s", err)
+			} else {
+				log.Printf("\n%d: %s", requestNum, string(data))
+			}
+
 		}(i)
 	}
 

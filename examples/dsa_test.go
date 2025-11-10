@@ -31,3 +31,23 @@ func TestMaxDistinctElements(t *testing.T) {
 	}
 
 }
+
+func TestMinOperationConvertToZero(t *testing.T) {
+	moctz := dsa.MinOperationConvertToZero{}
+	log.Println("TestCase1.................")
+	nums := []int{0, 2}
+	expected := 1
+	actual := moctz.MinOperations(nums)
+	if expected != actual {
+		t.Fatalf("failed. Expected: %d, Actual: %d", expected, actual)
+	}
+
+	log.Println("TestCase2.................")
+	nums2 := []int{3, 1, 2, 1}
+	expected2 := 3
+	actual2 := moctz.MinOperations(nums2)
+	if expected2 != actual2 {
+		t.Fatalf("failed. Expected: %d, Actual: %d", expected2, actual2)
+	}
+
+}
