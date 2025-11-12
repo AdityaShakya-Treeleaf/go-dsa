@@ -51,3 +51,30 @@ func TestMinOperationConvertToZero(t *testing.T) {
 	}
 
 }
+
+func TestMinOperationConvertToOne(t *testing.T) {
+	mocto := dsa.MinOperationsToOne{}
+	log.Println("TestCase1.................")
+	nums := []int{2, 6, 3, 4}
+	expected := 4
+	actual := mocto.MinOperations(nums)
+	if expected != actual {
+		t.Fatalf("failed. Expected: %d, Actual: %d", expected, actual)
+	}
+
+	log.Println("TestCase2.................")
+	nums2 := []int{2, 10, 6, 14}
+	expected2 := -1
+	actual2 := mocto.MinOperations(nums2)
+	if expected2 != actual2 {
+		t.Fatalf("failed. Expected: %d, Actual: %d", expected2, actual2)
+	}
+
+	log.Println("TestCase2.................")
+	nums3 := []int{6, 10, 15}
+	expected3 := 4
+	actual3 := mocto.MinOperations(nums3)
+	if expected3 != actual3 {
+		t.Fatalf("failed. Expected: %d, Actual: %d", expected3, actual3)
+	}
+}
