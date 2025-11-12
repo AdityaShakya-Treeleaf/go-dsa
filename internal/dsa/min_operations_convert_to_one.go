@@ -26,11 +26,24 @@ type MinOperationsToOne struct{}
 func (m MinOperationsToOne) MinOperations(nums []int) int {
 	n := len(nums)
 
+	overallGCD := 0
+	calculateOverallGcd := true
 	// Step 1: Count existing 1s
 	countOnes := 0
-	for _, num := range nums {
+	for i, num := range nums {
+		if i == 0 {
+			overallGCD = num
+		}
+
 		if num == 1 {
 			countOnes++
+		}
+
+		if calculateOverallGcd && i >= 1 && i < n {
+			overallGCD = gcd(overallGCD, nums[i])
+			if overallGCD == 1 {
+				calculateOverallGcd = false // Early exit if GCD becomes 1
+			}
 		}
 	}
 
@@ -43,15 +56,6 @@ func (m MinOperationsToOne) MinOperations(nums []int) int {
 	// gcd(1, x) = 1, so we need n - countOnes operations
 	if countOnes > 0 {
 		return n - countOnes
-	}
-
-	// Step 4: No 1s exist - check if possible
-	overallGCD := nums[0]
-	for i := 1; i < n; i++ {
-		overallGCD = gcd(overallGCD, nums[i])
-		if overallGCD == 1 {
-			break // Early exit if GCD becomes 1
-		}
 	}
 
 	if overallGCD > 1 {
