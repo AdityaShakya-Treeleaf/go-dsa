@@ -109,3 +109,13 @@ func TestIncrementSubMatOnes(t *testing.T) {
 		log.Printf("Result: %d", actual)
 	}
 }
+
+func TestCheckOnesDistance(t *testing.T) {
+	cod := dsa.CheckOnesDistance{}
+	nums := []int{1, 0, 0, 0, 1, 0, 0, 1}
+	k := 2
+	actual := cod.KLengthApart(nums, k)
+	if actual != true {
+		t.Fatalf("failed")
+	}
+}
