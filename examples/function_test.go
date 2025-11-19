@@ -44,3 +44,13 @@ func TestStringToSlice(t *testing.T) {
 	a := slices.Compact(strRunes)
 	log.Println(a)
 }
+
+func TestBinarySearch(t *testing.T) {
+	nums := []int{1, 2, 1, 1, 1, 2, 5, 7}
+	index, hasVal := slices.BinarySearch(nums, 2)
+	if !hasVal {
+		t.Fatalf("failed: %d", index)
+	}
+
+	log.Println(index)
+}
