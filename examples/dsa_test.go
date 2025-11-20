@@ -119,3 +119,19 @@ func TestCheckOnesDistance(t *testing.T) {
 		t.Fatalf("failed")
 	}
 }
+
+func TestSetInteractionSizeTwo(t *testing.T) {
+	//intervals := [][]int{
+	//	{1, 3}, {1, 4}, {2, 5}, {3, 5},
+	//}
+	intervals := [][]int{
+		{1, 3}, {3, 7}, {8, 9},
+	}
+
+	sist := dsa.SetIntersectionSizeTwo{}
+	expected := 3
+	actual := sist.IntersectionSizeTwo(intervals)
+	if expected != actual {
+		t.Fatalf("failed. Got: %d", actual)
+	}
+}
