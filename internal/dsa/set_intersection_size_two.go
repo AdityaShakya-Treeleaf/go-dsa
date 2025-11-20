@@ -1,6 +1,9 @@
 package dsa
 
-import "log"
+import (
+	"fmt"
+	"sort"
+)
 
 //Set Intersection Size At Least Two
 //You are given a 2D integer array intervals where intervals[i] = [starti, endi] represents all the integers from starti to endi inclusively.
@@ -12,35 +15,44 @@ import "log"
 type SetIntersectionSizeTwo struct{}
 
 func (s SetIntersectionSizeTwo) IntersectionSizeTwo(intervals [][]int) int {
-	log.Printf("Length of intervals: %d", len(intervals))
-	counterMap := make(map[int][]int)
-	maxContained := 1
-	for ind, interval := range intervals {
-		n := len(interval)
-		if n > 0 {
-			i := interval[0]
-			for i <= interval[n-1] {
-				counterMap[i] = append(counterMap[i], ind)
-				maxContained = maximum(maxContained, len(counterMap[i]))
-				i++
+	// Sort intervals by end point, and by start point in descending order for same end
+	sort.Slice(intervals, func(i, j int) bool {
+		if intervals[i][1] == intervals[j][1] {
+			return intervals[i][0] > intervals[j][0]
+		}
+		return intervals[i][1] < intervals[j][1]
+	})
+
+	fmt.Println(intervals)
+	minLength := 0
+	// We'll track the two largest numbers we've chosen for the current coverage
+	secondHighest, highest := -1, -1
+
+	for _, interval := range intervals {
+		start, end := interval[0], interval[1]
+
+		// If current interval is already covered by our two numbers
+		if start <= secondHighest {
+			continue
+		}
+
+		// If we need one more number for this interval
+		if start > highest {
+			// Add two largest numbers from this interval
+			minLength += 2
+			highest = end
+			secondHighest = end - 1
+		} else {
+			// We need exactly one more number
+			minLength += 1
+			secondHighest = highest
+			highest = end
+			// Make sure first is at least start
+			if secondHighest < start {
+				secondHighest = start
 			}
 		}
 	}
 
-	log.Println("CounterMap: ", counterMap)
-	log.Println("Max: ", maxContained)
-
-	if maxContained == 1 {
-		return len(intervals) * 2
-	}
-
-	return (len(intervals) * 2) - (len(intervals) - maxContained)
-}
-
-func maximum(a, b int) int {
-	if a > b {
-		return a
-	} else {
-		return b
-	}
+	return minLength
 }

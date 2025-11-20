@@ -129,7 +129,7 @@ func TestSetInteractionSizeTwo(t *testing.T) {
 	}
 
 	sist := dsa.SetIntersectionSizeTwo{}
-	expected := 3
+	expected := 5
 	actual := sist.IntersectionSizeTwo(intervals)
 	if expected != actual {
 		t.Fatalf("failed. Got: %d", actual)
